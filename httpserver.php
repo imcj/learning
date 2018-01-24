@@ -81,7 +81,7 @@ function handle($client)
 
         $buffer = '';
         $error = socket_recv($client, $buffer, $bufferSize, MSG_DONTWAIT);
-        $data .= $buffer;
+        // $data .= $buffer;
         $rlen = strlen($buffer);
 
 
@@ -137,9 +137,19 @@ function handleBuffer($client)
         // echo "buffer $rlen < 10\n";
         // socket_write($client, OUT);
         // socket_send()
-        if ($r2->rtime > 0.0001)
+        if ($r2->rtime > 0.01)
             echo "timeout {$r2->rtime}" . PHP_EOL;
-
+        
+        // $x = "";
+        // $x2 = '';
+        // for ($i = 0; $i < 100; $i++) {
+        //     // $x .= str_repeat(" ", 100);
+        //     // $x2[] = str_repeat(" ", 100);;
+        //     for ($j = 0; $j < 100; $j++) {
+        //         $x2 .= ' ';
+        //     }
+        // }
+        // echo strlen($x);
         unset($fds[$cid]);
         $s = new Request();
         $s->socket = $client;
@@ -171,9 +181,7 @@ function handleSend($client)
             echo "timeout {$r->wtime}" . PHP_EOL;
 
         unset($sds[$cid]);
-
-        fib(22);
-        echo "here\n";
+        
         @socket_shutdown($r->socket, 2);
         socket_close($r->socket);
     }
